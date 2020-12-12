@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Resources.h"
 #include "Window.h"
+#include "Light.h"
 
 Renderer::Renderer()
 {
@@ -26,10 +27,15 @@ void Renderer::Render(Shader& shader) const
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_DEPTH_TEST);
+
 	shader.Use();
 	shader.SetMat4("Projection", Camera::GetInstance().GetProjectionMatrix());
 	shader.SetMat4("View", Camera::GetInstance().GetViewMatrix());
 	shader.SetMat4("Model", modelMatrix);
+	shader.SetVec3("LightPosition", Light::GetInstance().GetPosition());
+	shader.SetVec3("LightColor", Light::GetInstance().GetColor());
+	shader.SetVec3("CameraPosition", Camera::GetInstance().GetPosition());
 
 	for (Mesh& mesh : Resources::GetInstance().meshVector)
 	{
