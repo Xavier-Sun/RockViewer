@@ -19,6 +19,9 @@ public:
 	glm::mat4 GetViewMatrix() const;
 	glm::mat4 GetProjectionMatrix() const;
 
+	glm::vec3 GetPosition() const { return position; }
+	void SetPosition(const glm::vec3& pos) { position = pos; }
+
 	void Init();
 	void Update();
 

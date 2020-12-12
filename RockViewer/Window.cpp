@@ -2,11 +2,12 @@
 
 #include <stdio.h>
 
-#include "Resources.h"
-#include "Renderer.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "Resources.h"
+#include "Renderer.h"
+#include "Camera.h"
 
 Window::~Window()
 {
@@ -137,19 +138,38 @@ void Window::ShowMessageWindow()
 {
 	ImGui::Begin("Model Message", &gui.canShowMessageWindow);
 
-	static char modelFilePath[50];
-	ImGui::InputText("Model File Path", modelFilePath, 50ull);
-
-	if (ImGui::Button("Load Model"))
+	if (ImGui::CollapsingHeader("Load Model"))
 	{
-		Resources::GetInstance().LoadModelFrom(modelFilePath);
-	}
+		static char modelFilePath[50];
 
+		ImGui::InputText("Model File Path", modelFilePath, sizeof(modelFilePath));
+		if (ImGui::Button("Load Model"))
+		{
+			Resources::GetInstance().LoadModelFrom(modelFilePath);
+		}
+	}
+	if (ImGui::CollapsingHeader("Camera Settings"))
+	{
+		static glm::vec3 cameraPos;
+		static float pos[3]{};
+
+		cameraPos = Camera::GetInstance().GetPosition();
+		pos[0] = cameraPos.x;
+		pos[1] = cameraPos.y;
+		pos[1] = cameraPos.z;
+		if (ImGui::InputFloat3("Camera Position", pos, 1))
+		{
+			cameraPos = glm::vec3(pos[0], pos[1], pos[2]);
+			Camera::GetInstance().SetPosition(cameraPos);
+		}
+	}
 	if (ImGui::CollapsingHeader("Mesh Data"))
 	{
+		static std::string yesOrNo;
+
 		ImGui::BulletText("Vertex Number: %d", Resources::GetInstance().GetVertexCount());
 		ImGui::BulletText("Index Number: %d", Resources::GetInstance().GetIndexCount());
-		static std::string yesOrNo = Resources::GetInstance().HasNormal() ? "Yes" : "No";
+		yesOrNo = Resources::GetInstance().HasNormal() ? "Yes" : "No";
 		ImGui::BulletText("Has Normal: %s", yesOrNo.c_str());
 		yesOrNo = Resources::GetInstance().HasUV0() ? "Yes" : "No";
 		ImGui::BulletText("Has UV 0: %s", yesOrNo.c_str());
