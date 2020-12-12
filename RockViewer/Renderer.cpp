@@ -33,7 +33,7 @@ void Renderer::Render(Shader& shader) const
 	shader.SetMat4("Projection", Camera::GetInstance().GetProjectionMatrix());
 	shader.SetMat4("View", Camera::GetInstance().GetViewMatrix());
 	shader.SetMat4("Model", modelMatrix);
-	shader.SetVec3("LightPosition", Light::GetInstance().GetPosition());
+	shader.SetVec3("LightDirection", Light::GetInstance().GetDirection());
 	shader.SetVec3("LightColor", Light::GetInstance().GetColor());
 	shader.SetVec3("CameraPosition", Camera::GetInstance().GetPosition());
 

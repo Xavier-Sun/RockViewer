@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include <stdio.h>
+#include <glm/glm.hpp>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -8,6 +9,7 @@
 #include "Resources.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include "Light.h"
 
 Window::~Window()
 {
@@ -75,6 +77,7 @@ bool Window::Init(int width, int height, const char* title)
 
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF("Fonts/SourceCodePro.ttf", 24.0f);
 	if (!ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true) || !ImGui_ImplOpenGL3_Init("#version 330"))
 	{
 		printf_s("¥ÌŒÛ£∫ImGui≥ı ºªØ ß∞‹°£\n");
@@ -150,17 +153,45 @@ void Window::ShowMessageWindow()
 	}
 	if (ImGui::CollapsingHeader("Camera Settings"))
 	{
-		static glm::vec3 cameraPos;
-		static float pos[3]{};
+		static glm::vec3 cameraPosVec3;
+		static float cameraPos[3]{};
 
-		cameraPos = Camera::GetInstance().GetPosition();
-		pos[0] = cameraPos.x;
-		pos[1] = cameraPos.y;
-		pos[1] = cameraPos.z;
-		if (ImGui::InputFloat3("Camera Position", pos, 1))
+		cameraPosVec3 = Camera::GetInstance().GetPosition();
+		cameraPos[0] = cameraPosVec3.x;
+		cameraPos[1] = cameraPosVec3.y;
+		cameraPos[2] = cameraPosVec3.z;
+		if (ImGui::InputFloat3("Camera Position", cameraPos, 1))
 		{
-			cameraPos = glm::vec3(pos[0], pos[1], pos[2]);
-			Camera::GetInstance().SetPosition(cameraPos);
+			cameraPosVec3 = glm::vec3(cameraPos[0], cameraPos[1], cameraPos[2]);
+			Camera::GetInstance().SetPosition(cameraPosVec3);
+		}
+	}
+	if (ImGui::CollapsingHeader("Light Settings"))
+	{
+		static glm::vec3 lightPosVec3;
+		static float lightPos[3]{};
+		
+		lightPosVec3 = Light::GetInstance().GetDirection();
+		lightPos[0] = lightPosVec3.x;
+		lightPos[1] = lightPosVec3.y;
+		lightPos[2] = lightPosVec3.z;
+		if (ImGui::InputFloat3("Light Position", lightPos, 1))
+		{
+			lightPosVec3 = glm::vec3(lightPos[0], lightPos[1], lightPos[2]);
+			Light::GetInstance().SetDirection(lightPosVec3);
+		}
+
+		static glm::vec3 lightColorVec3;
+		static float lightColor[3]{};
+
+		lightColorVec3 = Light::GetInstance().GetColor();
+		lightColor[0] = lightColorVec3.x;
+		lightColor[1] = lightColorVec3.y;
+		lightColor[2] = lightColorVec3.z;
+		if (ImGui::InputFloat3("Light Color", lightColor, 1))
+		{
+			lightColorVec3 = glm::vec3(lightColor[0], lightColor[1], lightColor[2]);
+			Light::GetInstance().SetColor(lightColorVec3);
 		}
 	}
 	if (ImGui::CollapsingHeader("Mesh Data"))

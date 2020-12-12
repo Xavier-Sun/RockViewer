@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
 	Input::Init();
 	Camera::GetInstance().Init();
 
-	Resources::GetInstance().LoadShaderFrom("D:/Shader/VertexShader.vert", "D:/Shader/FragmentShader.frag");
-	Resources::GetInstance().LoadModelFrom("D:/Model/nanosuit.obj");
+	Resources::GetInstance().LoadShaderFrom("Shaders/Phong.vert", "Shaders/Phong.frag");
+	Resources::GetInstance().LoadModelFrom("Models/SampleModel.obj");
 
 	while (Window::GetInstance().IsActive())
 	{

@@ -12,14 +12,14 @@ public:
 		return instance;
 	}
 
-	glm::vec3 GetPosition() const { return position; }
-	void SetPosition(const glm::vec3& pos) { position = pos; }
+	glm::vec3 GetDirection() const { return direction; }
+	void SetDirection(const glm::vec3& dir) { direction = dir; }
 
 	glm::vec3 GetColor() const { return color; }
 	void SetColor(const glm::vec3& col) { color = col; }
 
 private:
-	glm::vec3 position;
+	glm::vec3 direction;
 	glm::vec3 color;
 
 	Light();
