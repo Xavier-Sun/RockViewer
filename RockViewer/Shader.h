@@ -4,8 +4,6 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <string>
-#include <fstream>
-#include <sstream>
 
 class Shader
 {
@@ -15,7 +13,7 @@ public:
     void Load(const char* vertexShader, const char* fragmentShader);
     void Destroy();
 
-	void Use();
+	void Use() const;
 
     void SetBool(const std::string& name, bool value) const
     {
@@ -87,7 +85,7 @@ private:
         ShaderProgram
     };
 
-    void CheckError(unsigned int shader, ShaderType type);
+    void CheckError(unsigned int shader, ShaderType type) const;
 };
 
 #endif

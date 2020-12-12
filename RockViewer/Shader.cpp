@@ -7,15 +7,12 @@ Shader::Shader()
 
 void Shader::Load(const char* vertexShader, const char* fragmentShader)
 {
-    unsigned int vert;
-    unsigned int frag;
-
-    vert = glCreateShader(GL_VERTEX_SHADER);
+	unsigned int vert = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vert, 1, &vertexShader, nullptr);
     glCompileShader(vert);
 	CheckError(vert, ShaderType::VertexShader);
 
-    frag = glCreateShader(GL_FRAGMENT_SHADER);
+	unsigned int frag = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(frag, 1, &fragmentShader, nullptr);
     glCompileShader(frag);
 	CheckError(vert, ShaderType::FragmentShader);
@@ -34,12 +31,12 @@ void Shader::Destroy()
     glDeleteProgram(ID);
 }
 
-void Shader::Use()
+void Shader::Use() const
 {
 	glUseProgram(ID);
 }
 
-void Shader::CheckError(unsigned int shader, ShaderType type)
+void Shader::CheckError(unsigned int shader, ShaderType type) const
 {
 	int success;
 	char infoLog[1024];

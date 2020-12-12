@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include <glad/glad.h>
+
 Mesh::Mesh()
 {
     glGenVertexArrays(1, &VAO);
@@ -7,7 +9,7 @@ Mesh::Mesh()
     glGenBuffers(1, &EBO);
 }
 
-void Mesh::UploadMeshData()
+void Mesh::UploadMeshData() const
 {
     glBindVertexArray(VAO);
 
@@ -35,7 +37,7 @@ void Mesh::UploadMeshData()
     glBindVertexArray(0);
 }
 
-void Mesh::Destroy()
+void Mesh::Destroy() const
 {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);

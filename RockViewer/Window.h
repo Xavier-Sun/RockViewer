@@ -34,10 +34,10 @@ public:
 
 	~Window();
 
-	GLFWwindow* GetGLFWwindow() { return glfwWindow; }
+	GLFWwindow* GetGLFWwindow() const { return glfwWindow; }
 
-	bool IsActive() { return !glfwWindowShouldClose(glfwWindow); }
-	void SetActive(bool active) { glfwSetWindowShouldClose(glfwWindow, !active); }
+	bool IsActive() const { return !glfwWindowShouldClose(glfwWindow); }
+	void SetActive(bool active) const { glfwSetWindowShouldClose(glfwWindow, !active); }
 
 	bool Init(int width, int height, const char* title);
 	void Update();

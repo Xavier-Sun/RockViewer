@@ -1,7 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <glad/glad.h>
 #include <vector>
 
 #include "Vertex.h"
@@ -14,14 +13,14 @@ public:
 
 	Mesh();
 
-	int GetVertexCount() { return vertexVector.size(); }
-	int GetIndexCount() { return indexVector.size(); }
+	int GetVertexCount() const { return vertexVector.size(); }
+	int GetIndexCount() const { return indexVector.size(); }
 
-	void UploadMeshData();
-	void Destroy();
+	void UploadMeshData() const;
+	void Destroy() const;
 
-	unsigned int GetVAO() { return VAO; }
-	unsigned int GetEBO() { return EBO; }
+	unsigned int GetVAO() const { return VAO; }
+	unsigned int GetEBO() const { return EBO; }
 
 private:
 	unsigned int VBO;

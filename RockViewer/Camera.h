@@ -5,9 +5,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Input.h"
-#include "Time.h"
-
 class Camera
 {
 public:
@@ -19,8 +16,8 @@ public:
 
 	Camera();
 	
-	glm::mat4 GetViewMatrix();
-	glm::mat4 GetProjectionMatrix();
+	glm::mat4 GetViewMatrix() const;
+	glm::mat4 GetProjectionMatrix() const;
 
 	void Init();
 	void Update();

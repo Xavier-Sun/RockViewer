@@ -18,18 +18,18 @@ public:
 		return instance;
 	}
 
-	int GetMeshCount() { return meshVector.size(); }
-	int GetShaderCount() { return shaderVector.size(); }
+	int GetMeshCount() const { return meshVector.size(); }
+	int GetShaderCount() const { return shaderVector.size(); }
 
-	int GetVertexCount() { return vertexCount; }
-	int GetIndexCount() { return indexCount; }
+	int GetVertexCount() const { return vertexCount; }
+	int GetIndexCount() const { return indexCount; }
 
-	bool HasNormal() { return hasNormal; }
-	bool HasUV0() { return hasUV0; }
-	bool HasUV1() { return hasUV1; }
+	bool HasNormal() const { return hasNormal; }
+	bool HasUV0() const { return hasUV0; }
+	bool HasUV1() const { return hasUV1; }
 
-	bool hasAnyMesh() { return !meshVector.empty(); }
-	bool hasAnyShader() { return !shaderVector.empty(); }
+	bool hasAnyMesh() const { return !meshVector.empty(); }
+	bool hasAnyShader() const { return !shaderVector.empty(); }
 
 	void LoadModelFrom(const char* filePath);
 	void LoadShaderFrom(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);

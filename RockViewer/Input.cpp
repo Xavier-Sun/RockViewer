@@ -1,5 +1,7 @@
 #include "Input.h"
 
+#include "Window.h"
+
 double Input::lastCursorX = 0.0;
 double Input::lastCursorY = 0.0;
 double Input::cursorX = 0.0;

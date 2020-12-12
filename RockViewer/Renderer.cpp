@@ -1,5 +1,13 @@
 #include "Renderer.h"
+
+#include <glad/glad.h>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "Shader.h"
+#include "Mesh.h"
+#include "Camera.h"
 #include "Resources.h"
+#include "Window.h"
 
 Renderer::Renderer()
 {
@@ -8,7 +16,7 @@ Renderer::Renderer()
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
-void Renderer::Render(Shader& shader)
+void Renderer::Render(Shader& shader) const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -23,7 +31,7 @@ void Renderer::Render(Shader& shader)
 	shader.SetMat4("View", Camera::GetInstance().GetViewMatrix());
 	shader.SetMat4("Model", modelMatrix);
 
-	for (auto& mesh : Resources::GetInstance().meshVector)
+	for (Mesh& mesh : Resources::GetInstance().meshVector)
 	{
 		glBindVertexArray(mesh.GetVAO());
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.GetEBO());

@@ -1,12 +1,9 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <glad/glad.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include "Shader.h"
-#include "Mesh.h"
-#include "Camera.h"
+
+class Shader;
 
 class Renderer
 {
@@ -17,13 +14,13 @@ public:
 		return instance;
 	}
 
-	void Render(Shader& shader);
+	void Render(Shader& shader) const;
 
 private:
 	glm::mat4 modelMatrix;
 
 	Renderer();
-	Renderer(Renderer&) = delete;
+	Renderer(const Renderer&) = delete;
 };
 
 #endif

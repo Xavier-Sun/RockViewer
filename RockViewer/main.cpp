@@ -6,6 +6,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "Resources.h"
+#include "Window.h"
 
 int main(int argc, char* argv[])
 {

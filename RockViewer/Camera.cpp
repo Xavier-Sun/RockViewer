@@ -1,5 +1,8 @@
 #include "Camera.h"
 
+#include "Input.h"
+#include "Time.h"
+
 Camera::Camera()
 {
 	position = glm::vec3(0.0f, 10.0f, 20.0f);
@@ -13,12 +16,12 @@ Camera::Camera()
 	zoom = 0.0f;
 }
 
-glm::mat4 Camera::GetViewMatrix()
+glm::mat4 Camera::GetViewMatrix() const
 {
 	return glm::lookAt(position, position + front, up);
 }
 
-glm::mat4 Camera::GetProjectionMatrix()
+glm::mat4 Camera::GetProjectionMatrix() const
 {
 	return glm::perspective(glm::radians(zoom), 16.0f / 9.0f, 0.1f, 100.0f);
 }

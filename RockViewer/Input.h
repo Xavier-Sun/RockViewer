@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "Window.h"
+class GLFWwindow;
 
 enum class KeyCode
 {
