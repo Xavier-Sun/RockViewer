@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 
-void Resources::LoadModelFrom(const char* filePath)
+void Resources::LoadModelFromFile(const char* filePath)
 {
 	ResetMeshMessage();
 
@@ -21,8 +21,10 @@ void Resources::LoadModelFrom(const char* filePath)
 
 	for (unsigned int i = 0; i < aiscene->mNumMeshes; ++i)
 	{
-		auto aimesh = aiscene->mMeshes[i];
-		Mesh mesh;
+		meshVector.emplace_back();
+		Mesh& mesh = meshVector[meshVector.size() - 1];
+		mesh.Create();
+		aiMesh* aimesh = aiscene->mMeshes[i];
 		for (unsigned int j = 0; j < aimesh->mNumVertices; ++j)
 		{
 			Vertex vertex{};
@@ -55,8 +57,7 @@ void Resources::LoadModelFrom(const char* filePath)
 		}
 		vertexCount += mesh.vertexVector.size();
 		indexCount += mesh.indexVector.size();
-		mesh.UploadMeshData();
-		meshVector.push_back(mesh);
+		mesh.Upload();
 
 		printf_s("成功导入网格。模型路径：%s，顶点数量：%d，索引数量：%d\n",
 			filePath,
@@ -65,7 +66,7 @@ void Resources::LoadModelFrom(const char* filePath)
 	}
 }
 
-void Resources::LoadShaderFrom(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
+void Resources::LoadShaderFromFile(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
 {
 	std::string vertString;
 	std::string fragString;
@@ -91,17 +92,21 @@ void Resources::LoadShaderFrom(const std::string& shaderName, const char* vertex
 		printf_s("着色器文件读取失败。\n");
 	}
 
-	Shader shader;
-	shader.Load(vertString.c_str(), fragString.c_str());
+	shaderVector.emplace_back();
+	Shader& shader = shaderVector[shaderVector.size() - 1];
+	shader.Create();
+	shader.Upload(vertString.c_str(), fragString.c_str());
 	shader.SetName(shaderName);
-	shaderVector.push_back(shader);
 
-	printf_s("成功加载着色器。名称：%s。\n", shaderName.c_str());
+	printf_s("成功导入着色器。名称：%s。\n", shaderName.c_str());
 }
 
 Resources::Resources()
 {
-	ResetMeshMessage();
+	vertexCount = 0;
+	indexCount = 0;
+	hasNormal = false;
+	hasUV0 = false;
 }
 
 void Resources::ResetMeshMessage()
@@ -110,6 +115,18 @@ void Resources::ResetMeshMessage()
 	indexCount = 0;
 	hasNormal = false;
 	hasUV0 = false;
-	hasUV1 = false;
+	for (auto& mesh : meshVector)
+	{
+		mesh.Destroy();
+	}
 	meshVector.clear();
+}
+
+void Resources::ResetShaderMessage()
+{
+	for (auto& shader : shaderVector)
+	{
+		shader.Destroy();
+	}
+	shaderVector.clear();
 }

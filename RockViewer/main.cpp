@@ -20,9 +20,9 @@ int main(int argc, char* argv[])
 	Input::Init();
 	Camera::GetInstance().Init();
 
-	Resources::GetInstance().LoadShaderFrom("Blinn Phong", "Shaders/BlinnPhong.vert", "Shaders/BlinnPhong.frag");
-	Resources::GetInstance().LoadShaderFrom("Phong", "Shaders/Phong.vert", "Shaders/Phong.frag");
-	Resources::GetInstance().LoadModelFrom("Models/SampleModel.obj");
+	Resources::GetInstance().LoadShaderFromFile("Blinn Phong", "Shaders/BlinnPhong.vert", "Shaders/BlinnPhong.frag");
+	Resources::GetInstance().LoadShaderFromFile("Phong", "Shaders/Phong.vert", "Shaders/Phong.frag");
+	Resources::GetInstance().LoadModelFromFile("Models/SampleModel.obj");
 
 	while (Window::GetInstance().IsActive())
 	{

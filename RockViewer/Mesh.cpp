@@ -4,12 +4,19 @@
 
 Mesh::Mesh()
 {
+    VBO = 0u;
+    VAO = 0u;
+    EBO = 0u;
+}
+
+void Mesh::Create()
+{
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 }
 
-void Mesh::UploadMeshData() const
+void Mesh::Upload()
 {
     glBindVertexArray(VAO);
 
@@ -37,7 +44,7 @@ void Mesh::UploadMeshData() const
     glBindVertexArray(0);
 }
 
-void Mesh::Destroy() const
+void Mesh::Destroy()
 {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);

@@ -9,14 +9,16 @@ class Shader
 {
 public:
 	Shader();
+    ~Shader() = default;
+
+    void Create();
+    void Upload(const char* vertexShader, const char* fragmentShader);
+    void Destroy();
 
     std::string GetName() const { return name; }
     void SetName(const std::string& n) { name = n; }
 
-    void Load(const char* vertexShader, const char* fragmentShader);
-    void Destroy();
-
-	void Use() const;
+    void Use() const;
 
     void SetBool(const std::string& name, bool value) const
     {

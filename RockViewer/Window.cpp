@@ -148,7 +148,7 @@ void Window::ShowMessageWindow()
 		ImGui::InputText("Model File Path", modelFilePath, sizeof(modelFilePath));
 		if (ImGui::Button("Load Model"))
 		{
-			Resources::GetInstance().LoadModelFrom(modelFilePath);
+			Resources::GetInstance().LoadModelFromFile(modelFilePath);
 		}
 	}
 	if (ImGui::CollapsingHeader("Camera Settings"))
@@ -212,14 +212,13 @@ void Window::ShowMessageWindow()
 	{
 		static std::string yesOrNo;
 
+		ImGui::BulletText("Mesh Number: %d", Resources::GetInstance().GetMeshCount());
 		ImGui::BulletText("Vertex Number: %d", Resources::GetInstance().GetVertexCount());
 		ImGui::BulletText("Index Number: %d", Resources::GetInstance().GetIndexCount());
 		yesOrNo = Resources::GetInstance().HasNormal() ? "Yes" : "No";
 		ImGui::BulletText("Has Normal: %s", yesOrNo.c_str());
 		yesOrNo = Resources::GetInstance().HasUV0() ? "Yes" : "No";
 		ImGui::BulletText("Has UV 0: %s", yesOrNo.c_str());
-		yesOrNo = Resources::GetInstance().HasUV1() ? "Yes" : "No";
-		ImGui::BulletText("Has UV 1: %s", yesOrNo.c_str());
 	}
 
 	ImGui::End();

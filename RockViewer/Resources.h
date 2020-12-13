@@ -26,25 +26,24 @@ public:
 
 	bool HasNormal() const { return hasNormal; }
 	bool HasUV0() const { return hasUV0; }
-	bool HasUV1() const { return hasUV1; }
 
 	bool hasAnyMesh() const { return !meshVector.empty(); }
 	bool hasAnyShader() const { return !shaderVector.empty(); }
 
-	void LoadModelFrom(const char* filePath);
-	void LoadShaderFrom(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
+	void LoadModelFromFile(const char* filePath);
+	void LoadShaderFromFile(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
 
 private:
 	int vertexCount;
 	int indexCount;
 	bool hasNormal;
 	bool hasUV0;
-	bool hasUV1;
 
 	Resources();
 	Resources(const Resources&) = delete;
 
 	void ResetMeshMessage();
+	void ResetShaderMessage();
 };
 
 #endif

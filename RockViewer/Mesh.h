@@ -12,12 +12,14 @@ public:
 	std::vector<unsigned int> indexVector;
 
 	Mesh();
+	~Mesh() = default;
+
+	void Create();
+	void Upload();
+	void Destroy();
 
 	int GetVertexCount() const { return vertexVector.size(); }
 	int GetIndexCount() const { return indexVector.size(); }
-
-	void UploadMeshData() const;
-	void Destroy() const;
 
 	unsigned int GetVAO() const { return VAO; }
 	unsigned int GetEBO() const { return EBO; }
