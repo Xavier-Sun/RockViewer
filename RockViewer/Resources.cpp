@@ -65,7 +65,7 @@ void Resources::LoadModelFrom(const char* filePath)
 	}
 }
 
-void Resources::LoadShaderFrom(const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
+void Resources::LoadShaderFrom(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath)
 {
 	std::string vertString;
 	std::string fragString;
@@ -91,11 +91,12 @@ void Resources::LoadShaderFrom(const char* vertexShaderFilePath, const char* fra
 		printf_s("着色器文件读取失败。\n");
 	}
 
-	auto shader = Shader();
+	Shader shader;
 	shader.Load(vertString.c_str(), fragString.c_str());
+	shader.SetName(shaderName);
 	shaderVector.push_back(shader);
 
-	printf_s("成功加载着色器。编号：%d。\n", static_cast<int>(shaderVector.size()) - 1);
+	printf_s("成功加载着色器。名称：%s。\n", shaderName.c_str());
 }
 
 Resources::Resources()

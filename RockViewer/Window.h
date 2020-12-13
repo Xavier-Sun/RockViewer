@@ -45,6 +45,8 @@ public:
 private:
 	GLFWwindow* glfwWindow;
 
+	size_t currentShaderIndex;
+
 	Window();
 	Window(const Window&) = delete;
 

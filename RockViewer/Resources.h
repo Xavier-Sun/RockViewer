@@ -32,7 +32,7 @@ public:
 	bool hasAnyShader() const { return !shaderVector.empty(); }
 
 	void LoadModelFrom(const char* filePath);
-	void LoadShaderFrom(const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
+	void LoadShaderFrom(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
 
 private:
 	int vertexCount;

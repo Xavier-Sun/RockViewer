@@ -89,8 +89,7 @@ bool Window::Init(int width, int height, const char* title)
 
 void Window::Update()
 {
-	static int currentShader = 0;
-	Renderer::GetInstance().Render(Resources::GetInstance().shaderVector[currentShader]);
+	Renderer::GetInstance().Render(Resources::GetInstance().shaderVector[currentShaderIndex]);
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -115,6 +114,7 @@ void Window::Update()
 Window::Window()
 {
 	glfwWindow = nullptr;
+	currentShaderIndex = 0ull;
 }
 
 void Window::ShowSceneWindow()
@@ -192,6 +192,20 @@ void Window::ShowMessageWindow()
 		{
 			lightColorVec3 = glm::vec3(lightColor[0], lightColor[1], lightColor[2]);
 			Light::GetInstance().SetColor(lightColorVec3);
+		}
+	}
+	if (ImGui::CollapsingHeader("Shader Settings"))
+	{
+		if (ImGui::BeginCombo("Shader", Resources::GetInstance().shaderVector[currentShaderIndex].GetName().c_str()))
+		{
+			for (size_t i = 0; i < Resources::GetInstance().shaderVector.size(); ++i)
+			{
+				if (ImGui::Selectable(Resources::GetInstance().shaderVector[i].GetName().c_str()))
+				{
+					currentShaderIndex = i;
+				}
+			}
+			ImGui::EndCombo();
 		}
 	}
 	if (ImGui::CollapsingHeader("Mesh Data"))

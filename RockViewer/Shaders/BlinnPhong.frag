@@ -14,11 +14,10 @@ void main()
     vec3 worldNormalN = normalize(worldNormal);
     vec3 worldLightDir = normalize(LightDirection);
     vec3 worldViewDir = normalize(CameraPosition - worldPos);
-    vec3 worldReflectDir = reflect(-worldLightDir, worldNormalN);
 
     vec3 ambient = LightColor * 0.1;
     vec3 diffuse = LightColor * max(dot(worldNormalN, worldLightDir), 0.0);
-    vec3 specular = LightColor * pow(max(dot(worldViewDir, worldReflectDir), 0.0), 20.0);
+    vec3 specular = LightColor * pow(max(dot(worldNormalN, normalize(worldViewDir + worldLightDir)), 0.0), 20.0);
 
     FragColor = vec4(ambient + diffuse + specular, 1.0);
 }

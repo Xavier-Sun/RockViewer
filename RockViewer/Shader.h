@@ -10,6 +10,9 @@ class Shader
 public:
 	Shader();
 
+    std::string GetName() const { return name; }
+    void SetName(const std::string& n) { name = n; }
+
     void Load(const char* vertexShader, const char* fragmentShader);
     void Destroy();
 
@@ -77,6 +80,8 @@ public:
 
 private:
 	unsigned int ID;
+
+    std::string name;
 
     enum class ShaderType
     {
