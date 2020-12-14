@@ -5,18 +5,22 @@
 
 #include "Mesh.h"
 #include "Shader.h"
+#include "Texture.h"
 
 class Resources
 {
 public:
 	std::vector<Mesh> meshVector;
 	std::vector<Shader> shaderVector;
+	std::vector<Texture> textureVector;
 
 	static Resources& GetInstance()
 	{
 		static Resources instance;
 		return instance;
 	}
+
+	~Resources();
 
 	int GetMeshCount() const { return meshVector.size(); }
 	int GetShaderCount() const { return shaderVector.size(); }
@@ -32,6 +36,7 @@ public:
 
 	void LoadModelFromFile(const char* filePath);
 	void LoadShaderFromFile(const std::string& shaderName, const char* vertexShaderFilePath, const char* fragmentShaderFilePath);
+	void LoadTextureFromFile(const char* filePath);
 
 private:
 	int vertexCount;
@@ -44,6 +49,7 @@ private:
 
 	void ResetMeshMessage();
 	void ResetShaderMessage();
+	void ResetTextureMessage();
 };
 
 #endif

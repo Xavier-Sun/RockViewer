@@ -24,7 +24,32 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-bool Window::Init(int width, int height, const char* title)
+bool Window::Init()
+{
+	if (InitGLFW() && InitGLAD() && InitFrameBuffer() && InitGUI())
+	{
+		return true;
+	}
+	return false;
+}
+
+void Window::Update()
+{
+	UpdateFrameBuffer();
+	UpdateGUI();
+
+	glfwPollEvents();
+	glfwSwapBuffers(glfwWindow);
+}
+
+Window::Window()
+{
+	glfwWindow = nullptr;
+	currentShaderIndex = 0ull;
+	currentTextureIndex = std::vector<size_t>(20);
+}
+
+bool Window::InitGLFW()
 {
 	if (glfwInit() == GLFW_FALSE)
 	{
@@ -35,7 +60,7 @@ bool Window::Init(int width, int height, const char* title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
+	glfwWindow = glfwCreateWindow(1600, 900, "ROCK ENGINE 1.0", nullptr, nullptr);
 	if (!glfwWindow)
 	{
 		printf_s("´íÎó£ºGLFW´°¿Ú´´½¨Ê§°Ü¡£");
@@ -44,12 +69,22 @@ bool Window::Init(int width, int height, const char* title)
 	glfwMakeContextCurrent(glfwWindow);
 	glfwSetFramebufferSizeCallback(glfwWindow, FramebufferSizeCallback);
 
+	return true;
+}
+
+bool Window::InitGLAD()
+{
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		printf_s("´íÎó£ºGLAD³õÊ¼»¯Ê§°Ü¡£");
 		return false;
 	}
 
+	return true;
+}
+
+bool Window::InitFrameBuffer()
+{
 	glGenFramebuffers(1, &frameBuffer.FBO);
 	glGenTextures(1, &frameBuffer.renderTexture);
 	glGenRenderbuffers(1, &frameBuffer.RBO);
@@ -75,6 +110,11 @@ bool Window::Init(int width, int height, const char* title)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	return true;
+}
+
+bool Window::InitGUI()
+{
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("Fonts/SourceCodePro.ttf", 24.0f);
@@ -87,34 +127,37 @@ bool Window::Init(int width, int height, const char* title)
 	return true;
 }
 
-void Window::Update()
+void Window::UpdateFrameBuffer()
 {
-	Renderer::GetInstance().Render(Resources::GetInstance().shaderVector[currentShaderIndex]);
+	Renderer::GetInstance().RenderInit(Resources::GetInstance().shaderVector[currentShaderIndex]);
+	for (size_t meshCount = 0; meshCount < Resources::GetInstance().meshVector.size(); ++meshCount)
+	{
+		Renderer::GetInstance().Render
+		(
+			Resources::GetInstance().meshVector[meshCount],
+			Resources::GetInstance().textureVector[currentTextureIndex[meshCount]]
+		);
+	}
+	Renderer::GetInstance().RenderEnd();
+}
 
+void Window::UpdateGUI()
+{
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	if (gui.canShowSceneWindow)
-	{
-		ShowSceneWindow();
-	}
 	if (gui.canShowMessageWindow)
 	{
 		ShowMessageWindow();
 	}
+	if (gui.canShowSceneWindow)
+	{
+		ShowSceneWindow();
+	}
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-	glfwPollEvents();
-	glfwSwapBuffers(glfwWindow);
-}
-
-Window::Window()
-{
-	glfwWindow = nullptr;
-	currentShaderIndex = 0ull;
 }
 
 void Window::ShowSceneWindow()
@@ -140,6 +183,26 @@ void Window::ShowSceneWindow()
 void Window::ShowMessageWindow()
 {
 	ImGui::Begin("Model Message", &gui.canShowMessageWindow);
+
+	if (ImGui::CollapsingHeader("Texture"))
+	{
+		for (size_t meshCount = 0; meshCount < Resources::GetInstance().GetMeshCount(); meshCount++)
+		{
+			static std::string title;
+			title = "Mesh" + std::to_string(meshCount);
+			if (ImGui::BeginCombo(title.c_str(), Resources::GetInstance().textureVector[currentTextureIndex[meshCount]].GetName().c_str()))
+			{
+				for (size_t textureCount = 0; textureCount < Resources::GetInstance().textureVector.size(); ++textureCount)
+				{
+					if (ImGui::Selectable(Resources::GetInstance().textureVector[textureCount].GetName().c_str()))
+					{
+						currentTextureIndex[meshCount] = textureCount;
+					}
+				}
+				ImGui::EndCombo();
+			}
+		}
+	}
 
 	if (ImGui::CollapsingHeader("Load Model"))
 	{

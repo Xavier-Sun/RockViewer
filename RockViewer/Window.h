@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 
 class Window
 {
@@ -39,16 +40,25 @@ public:
 	bool IsActive() const { return !glfwWindowShouldClose(glfwWindow); }
 	void SetActive(bool active) const { glfwSetWindowShouldClose(glfwWindow, !active); }
 
-	bool Init(int width, int height, const char* title);
+	bool Init();
 	void Update();
 
 private:
 	GLFWwindow* glfwWindow;
 
 	size_t currentShaderIndex;
+	std::vector<size_t> currentTextureIndex;
 
 	Window();
 	Window(const Window&) = delete;
+
+	bool InitGLFW();
+	bool InitGLAD();
+	bool InitFrameBuffer();
+	bool InitGUI();
+
+	void UpdateFrameBuffer();
+	void UpdateGUI();
 
 	void ShowSceneWindow();
 	void ShowMessageWindow();

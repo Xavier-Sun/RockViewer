@@ -7,6 +7,15 @@
 #include <fstream>
 #include <sstream>
 
+#include "stb_image.h"
+
+Resources::~Resources()
+{
+	ResetMeshMessage();
+	ResetShaderMessage();
+	ResetTextureMessage();
+}
+
 void Resources::LoadModelFromFile(const char* filePath)
 {
 	ResetMeshMessage();
@@ -101,6 +110,30 @@ void Resources::LoadShaderFromFile(const std::string& shaderName, const char* ve
 	printf_s("成功导入着色器。名称：%s。\n", shaderName.c_str());
 }
 
+void Resources::LoadTextureFromFile(const char* filePath)
+{
+	stbi_set_flip_vertically_on_load(true);
+	int width;
+	int height;
+	int channelNum;
+	unsigned char* data = stbi_load(filePath, &width, &height, &channelNum, 0);
+	if (data)
+	{
+		textureVector.emplace_back();
+		Texture& texture = textureVector[textureVector.size() - 1];
+		texture.Create();
+		texture.Upload(width, height, data);
+		texture.SetName(filePath);
+
+		printf_s("成功导入纹理。名称：%s，宽度：%d，高度：%d\n", filePath, width, height);
+	}
+	else
+	{
+		printf_s("纹理导入失败。");
+	}
+	stbi_image_free(data);
+}
+
 Resources::Resources()
 {
 	vertexCount = 0;
@@ -129,4 +162,13 @@ void Resources::ResetShaderMessage()
 		shader.Destroy();
 	}
 	shaderVector.clear();
+}
+
+void Resources::ResetTextureMessage()
+{
+	for (auto& texture : textureVector)
+	{
+		texture.Destroy();
+	}
+	textureVector.clear();
 }
