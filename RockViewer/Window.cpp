@@ -207,7 +207,6 @@ void Window::ShowMessageWindow()
 	if (ImGui::CollapsingHeader("Load Model"))
 	{
 		static char modelFilePath[50];
-
 		ImGui::InputText("Model File Path", modelFilePath, sizeof(modelFilePath));
 		if (ImGui::Button("Load Model"))
 		{
@@ -218,7 +217,6 @@ void Window::ShowMessageWindow()
 	{
 		static glm::vec3 cameraPosVec3;
 		static float cameraPos[3]{};
-
 		cameraPosVec3 = Camera::GetInstance().GetPosition();
 		cameraPos[0] = cameraPosVec3.x;
 		cameraPos[1] = cameraPosVec3.y;
@@ -233,12 +231,11 @@ void Window::ShowMessageWindow()
 	{
 		static glm::vec3 lightPosVec3;
 		static float lightPos[3]{};
-		
 		lightPosVec3 = Light::GetInstance().GetDirection();
 		lightPos[0] = lightPosVec3.x;
 		lightPos[1] = lightPosVec3.y;
 		lightPos[2] = lightPosVec3.z;
-		if (ImGui::InputFloat3("Light Position", lightPos, 1))
+		if (ImGui::InputFloat3("Light Direction", lightPos, 1))
 		{
 			lightPosVec3 = glm::vec3(lightPos[0], lightPos[1], lightPos[2]);
 			Light::GetInstance().SetDirection(lightPosVec3);
@@ -246,15 +243,22 @@ void Window::ShowMessageWindow()
 
 		static glm::vec3 lightColorVec3;
 		static float lightColor[3]{};
-
 		lightColorVec3 = Light::GetInstance().GetColor();
 		lightColor[0] = lightColorVec3.x;
 		lightColor[1] = lightColorVec3.y;
 		lightColor[2] = lightColorVec3.z;
-		if (ImGui::InputFloat3("Light Color", lightColor, 1))
+		if (ImGui::DragFloat3("Light Color", lightColor, 0.01f, 0.0f, 1.0f, "%.2f"))
 		{
 			lightColorVec3 = glm::vec3(lightColor[0], lightColor[1], lightColor[2]);
 			Light::GetInstance().SetColor(lightColorVec3);
+		}
+	}
+	if (ImGui::CollapsingHeader("Render Settings"))
+	{
+		static bool borderOnly = false;
+		if (ImGui::Checkbox("Border Only", &borderOnly))
+		{
+			Renderer::GetInstance().SetBorderOnly(borderOnly);
 		}
 	}
 	if (ImGui::CollapsingHeader("Shader Settings"))
@@ -274,7 +278,6 @@ void Window::ShowMessageWindow()
 	if (ImGui::CollapsingHeader("Mesh Data"))
 	{
 		static std::string yesOrNo;
-
 		ImGui::BulletText("Mesh Number: %d", Resources::GetInstance().GetMeshCount());
 		ImGui::BulletText("Vertex Number: %d", Resources::GetInstance().GetVertexCount());
 		ImGui::BulletText("Index Number: %d", Resources::GetInstance().GetIndexCount());

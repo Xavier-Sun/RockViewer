@@ -17,6 +17,18 @@ Renderer::Renderer()
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
+void Renderer::SetBorderOnly(bool borderOnly) const
+{
+	if (borderOnly)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
+
 void Renderer::Render(Shader& shader) const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
