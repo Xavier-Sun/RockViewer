@@ -117,6 +117,8 @@ bool Window::InitGUI()
 {
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigWindowsResizeFromEdges = false;
+	io.ConfigWindowsMoveFromTitleBarOnly = true;
 	io.Fonts->AddFontFromFileTTF("Fonts/SourceCodePro.ttf", 24.0f);
 	if (!ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true) || !ImGui_ImplOpenGL3_Init("#version 330"))
 	{
@@ -155,6 +157,10 @@ void Window::UpdateGUI()
 	{
 		ShowSceneWindow();
 	}
+	if (gui.canShowResourcesWindow)
+	{
+		ShowResourcesWindow();
+	}
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -184,33 +190,24 @@ void Window::ShowMessageWindow()
 {
 	ImGui::Begin("Model Message", &gui.canShowMessageWindow);
 
-	if (ImGui::CollapsingHeader("Texture"))
+	if (ImGui::CollapsingHeader("Texture Settings"))
 	{
 		for (size_t meshCount = 0; meshCount < Resources::GetInstance().GetMeshCount(); meshCount++)
 		{
 			static std::string title;
 			title = "Mesh" + std::to_string(meshCount);
-			if (ImGui::BeginCombo(title.c_str(), Resources::GetInstance().textureVector[currentTextureIndex[meshCount]].GetName().c_str()))
+			ImGui::Text(title.c_str());
+			ImGui::SameLine();
+			ImGui::Button(Resources::GetInstance().textureVector[currentTextureIndex[meshCount]].GetName().c_str(), ImVec2(300, 30));
+			if (ImGui::BeginDragDropTarget())
 			{
-				for (size_t textureCount = 0; textureCount < Resources::GetInstance().textureVector.size(); ++textureCount)
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TEXTURE_INDEX"))
 				{
-					if (ImGui::Selectable(Resources::GetInstance().textureVector[textureCount].GetName().c_str()))
-					{
-						currentTextureIndex[meshCount] = textureCount;
-					}
+					size_t payload_n = *(const size_t*)payload->Data;
+					currentTextureIndex[meshCount] = payload_n;
 				}
-				ImGui::EndCombo();
+				ImGui::EndDragDropTarget();
 			}
-		}
-	}
-
-	if (ImGui::CollapsingHeader("Load Model"))
-	{
-		static char modelFilePath[50];
-		ImGui::InputText("Model File Path", modelFilePath, sizeof(modelFilePath));
-		if (ImGui::Button("Load Model"))
-		{
-			Resources::GetInstance().LoadModelFromFile(modelFilePath);
 		}
 	}
 	if (ImGui::CollapsingHeader("Camera Settings"))
@@ -285,6 +282,44 @@ void Window::ShowMessageWindow()
 		ImGui::BulletText("Has Normal: %s", yesOrNo.c_str());
 		yesOrNo = Resources::GetInstance().HasUV0() ? "Yes" : "No";
 		ImGui::BulletText("Has UV 0: %s", yesOrNo.c_str());
+	}
+
+	ImGui::End();
+}
+
+void Window::ShowResourcesWindow()
+{
+	ImGui::Begin("Resources", &gui.canShowResourcesWindow);
+
+	if (ImGui::CollapsingHeader("Models"))
+	{
+		static char modelFilePath[50];
+		ImGui::InputText("Model File Path", modelFilePath, sizeof(modelFilePath));
+		if (ImGui::Button("Load Model", ImVec2(300.0f, 30.0f)))
+		{
+			Resources::GetInstance().LoadModelFromFile(modelFilePath);
+		}
+	}
+	if (ImGui::CollapsingHeader("Textures"))
+	{
+		static char textureFilePath[50];
+		ImGui::InputText("Texture File Path", textureFilePath, sizeof(textureFilePath));
+		if (ImGui::Button("Load Texture", ImVec2(300.0f, 30.0f)))
+		{
+			Resources::GetInstance().LoadTextureFromFile(textureFilePath);
+		}
+		for (size_t textureCount = 0; textureCount < Resources::GetInstance().textureVector.size(); ++textureCount)
+		{
+			ImGui::PushID(textureCount);
+			ImGui::Button(Resources::GetInstance().textureVector[textureCount].GetName().c_str(), ImVec2(300, 60));
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload("TEXTURE_INDEX", &textureCount, sizeof(size_t));
+				ImGui::Text(Resources::GetInstance().textureVector[textureCount].GetName().c_str());
+				ImGui::EndDragDropSource();
+			}
+			ImGui::PopID();
+		}
 	}
 
 	ImGui::End();

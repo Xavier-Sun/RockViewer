@@ -18,6 +18,7 @@ public:
 	{
 		bool canShowSceneWindow = true;
 		bool canShowMessageWindow = true;
+		bool canShowResourcesWindow = true;
 	};
 
 	struct FrameBuffer
@@ -62,6 +63,7 @@ private:
 
 	void ShowSceneWindow();
 	void ShowMessageWindow();
+	void ShowResourcesWindow();
 };
 
 #endif
