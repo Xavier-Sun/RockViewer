@@ -22,8 +22,8 @@ public:
 
 	~Resources();
 
-	int GetMeshCount() const { return meshVector.size(); }
-	int GetShaderCount() const { return shaderVector.size(); }
+	size_t GetMeshCount() const { return meshVector.size(); }
+	size_t GetShaderCount() const { return shaderVector.size(); }
 
 	int GetVertexCount() const { return vertexCount; }
 	int GetIndexCount() const { return indexCount; }

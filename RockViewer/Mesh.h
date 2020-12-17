@@ -18,8 +18,8 @@ public:
 	void Upload();
 	void Destroy();
 
-	int GetVertexCount() const { return vertexVector.size(); }
-	int GetIndexCount() const { return indexVector.size(); }
+	size_t GetVertexCount() const { return vertexVector.size(); }
+	size_t GetIndexCount() const { return indexVector.size(); }
 
 	unsigned int GetVAO() const { return VAO; }
 	unsigned int GetEBO() const { return EBO; }

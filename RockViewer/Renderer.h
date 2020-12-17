@@ -10,6 +10,14 @@ class Texture;
 class Renderer
 {
 public:
+	enum class CullMode
+	{
+		None,
+		Front,
+		Back,
+		FrontAndBack
+	};
+
 	static Renderer& GetInstance()
 	{
 		static Renderer instance;
@@ -17,6 +25,7 @@ public:
 	}
 
 	void SetBorderOnly(bool borderOnly) const;
+	void SetCullMode(CullMode mode) const;
 
 	void Render(Shader& shader) const;
 	void RenderInit(Shader& shader) const;

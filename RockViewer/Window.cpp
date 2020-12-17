@@ -244,7 +244,7 @@ void Window::ShowMessageWindow()
 		lightColor[0] = lightColorVec3.x;
 		lightColor[1] = lightColorVec3.y;
 		lightColor[2] = lightColorVec3.z;
-		if (ImGui::DragFloat3("Light Color", lightColor, 0.01f, 0.0f, 1.0f, "%.2f"))
+		if (ImGui::ColorPicker3("Light Color", lightColor))
 		{
 			lightColorVec3 = glm::vec3(lightColor[0], lightColor[1], lightColor[2]);
 			Light::GetInstance().SetColor(lightColorVec3);
@@ -252,10 +252,39 @@ void Window::ShowMessageWindow()
 	}
 	if (ImGui::CollapsingHeader("Render Settings"))
 	{
+		ImGui::BulletText("Polygon Mode");
 		static bool borderOnly = false;
 		if (ImGui::Checkbox("Border Only", &borderOnly))
 		{
 			Renderer::GetInstance().SetBorderOnly(borderOnly);
+		}
+
+		ImGui::Separator();
+
+		ImGui::BulletText("Cull Mode");
+		static Renderer::CullMode cullMode = Renderer::CullMode::None;
+		if (ImGui::RadioButton("None", cullMode == Renderer::CullMode::None))
+		{
+			cullMode = Renderer::CullMode::None;
+			Renderer::GetInstance().SetCullMode(cullMode);
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Front", cullMode == Renderer::CullMode::Front))
+		{
+			cullMode = Renderer::CullMode::Front;
+			Renderer::GetInstance().SetCullMode(cullMode);
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Back", cullMode == Renderer::CullMode::Back))
+		{
+			cullMode = Renderer::CullMode::Back;
+			Renderer::GetInstance().SetCullMode(cullMode);
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("FrontAndBack", cullMode == Renderer::CullMode::FrontAndBack))
+		{
+			cullMode = Renderer::CullMode::FrontAndBack;
+			Renderer::GetInstance().SetCullMode(cullMode);
 		}
 	}
 	if (ImGui::CollapsingHeader("Shader Settings"))
@@ -311,13 +340,15 @@ void Window::ShowResourcesWindow()
 		for (size_t textureCount = 0; textureCount < Resources::GetInstance().textureVector.size(); ++textureCount)
 		{
 			ImGui::PushID(textureCount);
-			ImGui::Button(Resources::GetInstance().textureVector[textureCount].GetName().c_str(), ImVec2(300, 60));
+			ImGui::ImageButton((ImTextureID)Resources::GetInstance().textureVector[textureCount].GetID(), ImVec2(60, 60));
 			if (ImGui::BeginDragDropSource())
 			{
 				ImGui::SetDragDropPayload("TEXTURE_INDEX", &textureCount, sizeof(size_t));
 				ImGui::Text(Resources::GetInstance().textureVector[textureCount].GetName().c_str());
 				ImGui::EndDragDropSource();
 			}
+			ImGui::SameLine();
+			ImGui::Text(Resources::GetInstance().textureVector[textureCount].GetName().c_str());
 			ImGui::PopID();
 		}
 	}

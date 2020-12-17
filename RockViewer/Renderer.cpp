@@ -29,6 +29,30 @@ void Renderer::SetBorderOnly(bool borderOnly) const
 	}
 }
 
+void Renderer::SetCullMode(CullMode mode) const
+{
+	switch (mode)
+	{
+	case Renderer::CullMode::None:
+		glDisable(GL_CULL_FACE);
+		break;
+	case Renderer::CullMode::Front:
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		break;
+	case Renderer::CullMode::Back:
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		break;
+	case Renderer::CullMode::FrontAndBack:
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT_AND_BACK);
+		break;
+	default:
+		break;
+	}
+}
+
 void Renderer::Render(Shader& shader) const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
