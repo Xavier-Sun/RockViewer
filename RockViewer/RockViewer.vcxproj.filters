@@ -9,129 +9,187 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="源文件\imgui">
-      <UniqueIdentifier>{7bd1396b-e2ae-4703-acdc-33a8a2dd345a}</UniqueIdentifier>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Core">
+      <UniqueIdentifier>{d3c7c1d3-cb5f-4fda-a46d-235f245675a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Core">
+      <UniqueIdentifier>{f077b084-099f-4bc5-9a69-c201f785d72d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Graphics">
+      <UniqueIdentifier>{4a16b27a-5985-4bba-a86a-4541d07b126f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Graphics">
+      <UniqueIdentifier>{6a5e45dd-6176-4900-95af-23275cc66f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Utilities">
+      <UniqueIdentifier>{4bfdc32f-7997-487a-a653-8924ba102ce2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Utilities">
+      <UniqueIdentifier>{a105d037-4daf-46e8-a267-e63224039c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Main">
+      <UniqueIdentifier>{28c6c1ee-0341-43e7-877a-6cf645c39220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ThirdParty">
+      <UniqueIdentifier>{d03e6275-712d-4c0c-a867-9410a800dcb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ThirdParty\glad">
+      <UniqueIdentifier>{162ea142-975a-482c-8fde-c25a299525cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ThirdParty\imgui">
+      <UniqueIdentifier>{e0953c9d-ea14-4b58-8bf0-22c8ed5d4736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ThirdParty\stb_image">
+      <UniqueIdentifier>{02240c09-11e0-4ba8-b01f-d635ee72aee8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Input.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Light.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Renderer.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Resources.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Core\Window.cpp">
+      <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Graphics\FrameBuffer.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Graphics\Graphics.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_demo.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Graphics\Material.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_draw.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Graphics\Mesh.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_glfw.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Graphics\Shader.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Graphics\Texture.cpp">
+      <Filter>源文件\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_widgets.cpp">
-      <Filter>源文件\imgui</Filter>
+    <ClCompile Include="Utilities\File.cpp">
+      <Filter>源文件\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="Main\main.cpp">
+      <Filter>源文件\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="ThirdParty\glad\glad.c">
+      <Filter>源文件\ThirdParty\glad</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="ThirdParty\imgui\imgui.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="ThirdParty\imgui\imgui_demo.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="ThirdParty\imgui\imgui_draw.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_impl_glfw.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_impl_opengl3.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\stb_image\stb_image.cpp">
+      <Filter>源文件\ThirdParty\stb_image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Input.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Light.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Renderer.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Resources.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Time.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Resources.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="Core\Window.h">
+      <Filter>头文件\Core</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imconfig.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\FrameBuffer.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Graphics.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_glfw.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Material.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_opengl3.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Mesh.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Shader.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imstb_rectpack.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Texture.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imstb_textedit.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Graphics\Vertex.h">
+      <Filter>头文件\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imstb_truetype.h">
-      <Filter>源文件\imgui</Filter>
+    <ClInclude Include="Utilities\File.h">
+      <Filter>头文件\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ThirdParty\imgui\imconfig.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ThirdParty\imgui\imgui.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ThirdParty\imgui\imgui_impl_glfw.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ThirdParty\imgui\imgui_impl_opengl3.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="ThirdParty\imgui\imgui_internal.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_rectpack.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_textedit.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_truetype.h">
+      <Filter>源文件\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\stb_image\stb_image.h">
+      <Filter>源文件\ThirdParty\stb_image</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

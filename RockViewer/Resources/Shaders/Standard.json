@@ -1,0 +1,9 @@
+{
+    "name": "Standard Shader",
+    "properties": {
+        "Color": "color",
+        "DiffuseMap": "2d"
+    },
+    "vert": "Resources/Shaders/Standard.vert",
+    "frag": "Resources/Shaders/Standard.frag"
+}
